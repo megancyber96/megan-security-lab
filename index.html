@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A beginner-friendly space to learn about passwords, hashing, and cybersecurity.">
+  <title>Megan Security Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- defer runs JavaScript after the HTML has loaded. -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="dashboard">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Megan Security Lab home">
+        <span class="brand-mark" aria-hidden="true">M<span>_</span></span>
+        <span>MEGAN / SECURITY LAB</span>
+      </a>
+      <span class="stage-label">04 / Test your knowledge</span>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">YOUR CYBERSECURITY WORKSPACE</p>
+        <h1 id="page-title">Megan Security Lab<span class="accent">.</span></h1>
+        <p class="intro-text">Build your confidence in cybersecurity, one concept at a time.</p>
+      </section>
+
+      <section id="tools" aria-labelledby="tools-title">
+        <div class="section-heading">
+          <h2 id="tools-title">Explore the lab</h2>
+          <span>4 learning tools</span>
+        </div>
+
+        <!-- Each card opens its own learning tool. -->
+        <div class="tool-grid">
+          <article class="tool-card available-card">
+            <div class="card-top">
+              <span class="tool-icon" aria-hidden="true">***</span>
+              <span class="tool-number">01</span>
+            </div>
+            <p class="category">PASSWORD SECURITY</p>
+            <h3><button id="open-analyzer" class="card-button" type="button" aria-controls="analyzer" aria-expanded="false">Password Strength Analyzer</button></h3>
+            <p class="card-description">Learn what makes a password strong and how to spot common weaknesses.</p>
+            <div class="card-footer available-status">Open analyzer <span aria-hidden="true">&rarr;</span></div>
+          </article>
+
+          <article class="tool-card available-card">
+            <div class="card-top">
+              <span class="tool-icon" aria-hidden="true">+*</span>
+              <span class="tool-number">02</span>
+            </div>
+            <p class="category">PASSWORD CREATION</p>
+            <h3><button id="open-generator" class="card-button" type="button" aria-controls="generator" aria-expanded="false">Secure Password Generator</button></h3>
+            <p class="card-description">Explore how length and randomness help create more secure passwords.</p>
+            <div class="card-footer available-status">Open generator <span aria-hidden="true">&rarr;</span></div>
+          </article>
+
+          <article class="tool-card available-card">
+            <div class="card-top">
+              <span class="tool-icon" aria-hidden="true">#</span>
+              <span class="tool-number">03</span>
+            </div>
+            <p class="category">HASHING BASICS</p>
+            <h3><button id="open-hash-lab" class="card-button" type="button" aria-controls="hash-lab" aria-expanded="false">Hash Lab</button></h3>
+            <p class="card-description">Discover how hashing turns data into a digital fingerprint.</p>
+            <div class="card-footer available-status">Open Hash Lab <span aria-hidden="true">&rarr;</span></div>
+          </article>
+
+          <article class="tool-card available-card">
+            <div class="card-top">
+              <span class="tool-icon" aria-hidden="true">?</span>
+              <span class="tool-number">04</span>
+            </div>
+            <p class="category">TEST YOUR KNOWLEDGE</p>
+            <h3><button id="open-quiz" class="card-button" type="button" aria-controls="quiz" aria-expanded="false">Security Quiz</button></h3>
+            <p class="card-description">Put your cybersecurity knowledge to the test, one question at a time.</p>
+            <div class="card-footer available-status">Open quiz <span aria-hidden="true">&rarr;</span></div>
+          </article>
+        </div>
+      </section>
+      <!-- Hidden until the analyzer card is selected. There is no form submission. -->
+      <section id="analyzer" class="analyzer" aria-labelledby="analyzer-title" hidden>
+        <button id="back-to-tools" class="secondary-button" type="button">&larr; Back to tools</button>
+        <p class="eyebrow">PASSWORD SECURITY</p>
+        <h2 id="analyzer-title">Password Strength Analyzer</h2>
+        <p id="privacy-note" class="helper-text">Use a made-up password. Values are processed locally in browser memory and are not persistently stored, logged, or transmitted by this app.</p>
+        <label for="password">Password to analyze</label>
+        <div class="password-field">
+          <input id="password" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" autocorrect="off" aria-describedby="privacy-note password-limit strength-label scoring-note">
+          <button id="toggle-password" class="secondary-button" type="button" aria-controls="password" aria-pressed="false">Show password</button>
+        </div>
+        <p id="password-limit" class="helper-text">Limit: 256 characters (Unicode code points). Oversized input is not analyzed or truncated; shorten it to continue.</p>
+        <p id="strength-label" role="status">Enter a password to see its strength.</p>
+        <div id="strength-meter" role="meter" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" aria-label="Educational password strength estimate" aria-valuetext="No password entered" data-score="0"><span id="strength-fill" aria-hidden="true"></span></div>
+        <h3>Length and character checklist</h3>
+        <p class="helper-text">Character types are observations, not requirements or proof of security. Longer, unpredictably chosen passwords matter more than adding a capital letter or symbol.</p>
+        <ul class="checklist">
+          <li id="check-length">Missing: At least 12 characters</li>
+          <li id="check-uppercase">Missing: An uppercase letter (A–Z)</li>
+          <li id="check-lowercase">Missing: A lowercase letter (a–z)</li>
+          <li id="check-number">Missing: A number (0–9)</li>
+          <li id="check-special">Missing: A special character (such as !, @, or #)</li>
+        </ul>
+        <h3>Predictable pattern checks</h3>
+        <ul class="checklist">
+          <li id="risk-common">Not checked: Contains a common password or obvious variation from this demo's list</li>
+          <li id="risk-sequence">Not checked: Contains a sequence of 4+ letters, numbers, or keyboard keys</li>
+          <li id="risk-repeated">Not checked: Contains a character 3+ times or a block of 2–128 characters twice in a row (ignoring case)</li>
+          <li id="risk-password-word">Not checked: Contains the word "password"</li>
+        </ul>
+        <p id="scoring-note" class="helper-text">Educational estimate only, never a guarantee of security. Before pattern checks, lengths below 8, 12, 16, and 20 characters rate Very Weak, Weak, Medium, and Strong; 20+ rates Very Strong. Common-password matches or the word "password" reduce the rating to Very Weak. Detected sequences, repetitions, or fewer than five distinct characters (ignoring case) cap it at Weak. Capital letters and symbols earn no extra points. The small local list and simple checks miss many predictable choices and cannot identify reused or leaked passwords, measure entropy, or know how randomly you chose the input. Spaces count toward length, not as special characters.</p>
+
+        <section class="learning-notes" aria-labelledby="learning-title">
+          <h3 id="learning-title">Understand your result</h3>
+          <h4>Why length matters</h4>
+          <p>Each extra randomly chosen character increases the number of possible combinations an attacker must try. Length helps most when the added characters or words are unpredictable; repeating the same letter adds little protection.</p>
+          <h4>Why predictable patterns are dangerous</h4>
+          <p>Attackers can try common words, number sequences, keyboard patterns, and repeated characters early. A long password built from these patterns can still be easy to guess, even with a capital letter or symbol added.</p>
+          <h4>What is password entropy?</h4>
+          <p>Entropy describes uncertainty in how a password is chosen. Imagine guessing a secret picked randomly from a bag: more equally likely choices make guessing harder. Random choices provide more uncertainty than familiar phrases or patterns. This meter is a checklist estimate; it does not calculate entropy or cracking time.</p>
+        </section>
+      </section>
+      <section id="generator" class="analyzer" aria-labelledby="generator-title" hidden>
+        <button id="generator-back" class="secondary-button" type="button">&larr; Back to tools</button>
+        <p class="eyebrow">PASSWORD CREATION</p>
+        <h2 id="generator-title">Secure Password Generator</h2>
+        <p class="helper-text">Values are processed locally in browser memory and are not persistently stored, logged, or transmitted by this app.</p>
+        <label for="generator-length">Password length (12–64)</label>
+        <input id="generator-length" class="length-input" type="number" min="12" max="64" step="1" value="20">
+        <fieldset class="generator-options">
+          <legend>Include character types</legend>
+          <label><input id="include-uppercase" type="checkbox" checked> Uppercase letters (A–Z)</label>
+          <label><input id="include-lowercase" type="checkbox" checked> Lowercase letters (a–z)</label>
+          <label><input id="include-numbers" type="checkbox" checked> Numbers (0–9)</label>
+          <label><input id="include-special" type="checkbox" checked> Special characters (!, @, #, and more)</label>
+        </fieldset>
+        <p class="helper-text">Choose at least one type. Every selected type will appear in your password.</p>
+        <button id="generate-password" class="secondary-button primary-button" type="button">Generate Password</button>
+        <label for="generated-password">Generated password</label>
+        <textarea id="generated-password" class="generated-output" rows="3" readonly autocomplete="off" spellcheck="false" placeholder="Your generated password will appear here."></textarea>
+        <button id="copy-password" class="secondary-button" type="button" aria-describedby="password-copy-note" disabled>Copy</button>
+        <p id="password-copy-note" class="helper-text">Copy places the password in the system clipboard only when clicked. Clearing this page does not remove a copied value or cancel a copy already started. Clipboard history, synchronization, and other software may retain or access it.</p>
+        <p id="generator-status" class="helper-text" role="status"></p>
+        <section class="learning-notes" aria-labelledby="randomness-title">
+          <h3 id="randomness-title">Why secure randomness matters</h3>
+          <p>The browser's crypto.getRandomValues() produces random numbers designed to be unpredictable, using its cryptographic random number generator. We use those numbers to select characters. Math.random() is for everyday tasks such as games and animations; it is not designed to protect secrets.</p>
+        </section>
+      </section>
+      <section id="hash-lab" class="analyzer" aria-labelledby="hash-title" hidden>
+        <button id="hash-back" class="secondary-button" type="button">&larr; Back to tools</button>
+        <p class="eyebrow">HASHING BASICS</p>
+        <h2 id="hash-title">Hash Lab</h2>
+        <p id="hash-privacy" class="helper-text">Use practice text. Text and hashes are processed locally in browser memory and are not persistently stored, logged, or transmitted by this app.</p>
+        <label for="hash-input">Practice text</label>
+        <textarea id="hash-input" class="generated-output" rows="3" autocomplete="off" spellcheck="false" autocapitalize="none" autocorrect="off" aria-describedby="hash-privacy hash-input-note hash-status" placeholder="Try hello, then change it to Hello."></textarea>
+        <p id="hash-input-note" class="helper-text">Limit: 10,000 characters (Unicode code points). Oversized input is not hashed or truncated; shorten it to continue. Capital letters, spaces, and line breaks all matter. Empty text can also be hashed.</p>
+        <div class="tool-actions">
+          <button id="generate-hash" class="secondary-button primary-button" type="button">Generate SHA-256 Hash</button>
+          <button id="clear-hash" class="secondary-button" type="button">Clear</button>
+        </div>
+        <label for="hash-output">SHA-256 hash (64 hexadecimal characters)</label>
+        <textarea id="hash-output" class="generated-output" rows="3" readonly autocomplete="off" spellcheck="false" placeholder="Your hash will appear here."></textarea>
+        <button id="copy-hash" class="secondary-button" type="button" aria-describedby="hash-copy-note" disabled>Copy Hash</button>
+        <p id="hash-copy-note" class="helper-text">Copy Hash places the hash in the system clipboard only when clicked. Clear removes the page's values, not a copied value or a copy already started. Clipboard history, synchronization, and other software may retain or access it.</p>
+        <p id="hash-status" class="helper-text" role="status"></p>
+        <section class="learning-notes" aria-labelledby="salt-title">
+          <h3 id="salt-title">Salt Demonstration</h3>
+          <p class="education-warning"><strong>Educational only: SHA-256 + salt is NOT recommended for storing real passwords.</strong> This demo is not a password storage system.</p>
+          <label for="salt-password">Practice password</label>
+          <div class="password-field">
+            <input id="salt-password" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" autocorrect="off" aria-describedby="salt-instructions salt-status">
+          </div>
+          <p id="salt-instructions" class="helper-text">Use a made-up password, up to 256 characters (Unicode code points). Oversized input is not hashed or truncated. Generate two salts to compare the same password with each. Click again to replace Salt B while keeping Salt A. Editing the password clears both results. Values are processed locally in browser memory and are not persistently stored, logged, or transmitted by this app.</p>
+          <div class="tool-actions">
+            <button id="generate-salt" class="secondary-button primary-button" type="button">Generate New Salt</button>
+            <button id="clear-salt" class="secondary-button" type="button">Clear demonstration</button>
+          </div>
+          <p class="helper-text">Demo formula: <code>SHA-256(saltHex + ":" + practicePassword)</code>, encoded as UTF-8. Each salt is 16 random bytes displayed as 32 hexadecimal characters.</p>
+          <div class="salt-results">
+            <div>
+              <label for="salt-a">Salt A (not secret)</label>
+              <output id="salt-a" class="salt-value">Not generated</output>
+              <label for="salt-hash-a">Hash with Salt A</label>
+              <output id="salt-hash-a" class="salt-value">Not generated</output>
+            </div>
+            <div>
+              <label for="salt-b">Salt B (not secret)</label>
+              <output id="salt-b" class="salt-value">Not generated</output>
+              <label for="salt-hash-b">Hash with Salt B</label>
+              <output id="salt-hash-b" class="salt-value">Not generated</output>
+            </div>
+          </div>
+          <p id="salt-status" class="helper-text" role="status"></p>
+          <h4>A salt is NOT secret</h4>
+          <p>A salt is a random extra value used when hashing a password. In a real system, it can be saved openly alongside the password hash. Different salts help keep identical passwords from producing identical stored hashes. They also make precomputed lists of password hashes less useful: the calculation must account for each salt.</p>
+          <h4>Real password storage needs more</h4>
+          <p>Salts do not make a weak password strong or make fast SHA-256 expensive to guess. Real applications need a dedicated password-hashing function or key derivation function (KDF), with a unique random salt and appropriate cost parameters. Prefer Argon2id; alternatives include scrypt, bcrypt for legacy systems, or PBKDF2 where required. Use a maintained library and tune its time and, where applicable, memory costs.</p>
+        </section>
+        <section class="learning-notes" aria-labelledby="hash-learning-title">
+          <h3 id="hash-learning-title">Try a one-character change</h3>
+          <ol class="helper-text">
+            <li>Enter <code>hello</code> and generate its hash. Notice the result.</li>
+            <li>Change only the first letter to make <code>Hello</code>, then generate again.</li>
+            <li>Change it back to <code>hello</code> and generate again: the original hash returns.</li>
+          </ol>
+          <p>A tiny input change produces a dramatically different-looking hash. This is the avalanche effect: on average, about half the output bits change. It does not mean every hexadecimal character must change.</p>
+          <h4>Hashing is one-way, not encryption</h4>
+          <p>SHA-256 creates a fixed-size, 256-bit fingerprint of your text. The same exact bytes always give the same fingerprint. A hash is not a hidden copy of the message, and there is no decryption key to recover it. One-way does not make predictable input secret: someone who already guesses the input can check its hash.</p>
+          <h4>How encryption is different</h4>
+          <p>Encryption protects a message so someone with the correct key can decrypt it and read the original. Hashing creates a fingerprint for comparison; it is not designed to recover the original message.</p>
+          <h4>Why not store passwords with plain SHA-256?</h4>
+          <p>SHA-256 is deliberately fast. Real password storage needs a dedicated password-hashing function such as Argon2id, configured to make guesses expensive. A unique random salt for each password makes identical passwords produce different stored hashes and prevents reuse of precomputed hash lists. The salt is stored alongside the hash and does not need to be secret. Adding a salt to plain SHA-256 alone is not enough.</p>
+        </section>
+      </section>
+      <section id="quiz" class="analyzer" aria-labelledby="quiz-title" hidden>
+        <button id="quiz-back" class="secondary-button" type="button">&larr; Back to tools</button>
+        <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
+        <h2 id="quiz-title">Security Quiz</h2>
+        <p class="helper-text">Choose one answer to get an explanation. Use Tab to move between answers and Enter or Space to choose. Your score stays in this page only; returning to the dashboard starts a fresh quiz.</p>
+        <div id="quiz-question-view">
+          <div class="section-heading">
+            <p id="quiz-progress"></p>
+            <p id="quiz-score"></p>
+          </div>
+          <h3 id="quiz-question" tabindex="-1" aria-describedby="quiz-progress"></h3>
+          <div id="quiz-answers" class="quiz-answers" role="group" aria-labelledby="quiz-question"></div>
+          <p id="quiz-feedback" class="quiz-feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+          <button id="quiz-next" class="secondary-button primary-button" type="button" disabled>Next Question</button>
+        </div>
+        <div id="quiz-result" hidden>
+          <h3 id="quiz-final-score" tabindex="-1"></h3>
+          <p class="helper-text">Every explanation is a chance to learn. Try again to practise the concepts.</p>
+          <button id="quiz-restart" class="secondary-button primary-button" type="button">Restart Quiz</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>A space to learn. A place to experiment.</p>
+      <p>MEGAN SECURITY LAB / <span id="year">2026</span></p>
+    </footer>
+  </div>
+</body>
+</html>

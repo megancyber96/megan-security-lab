@@ -1,0 +1,133 @@
+/* Shared colors keep the theme easy to change. */
+:root {
+  color-scheme: dark;
+  --background: #0b111b;
+  --surface: #121d2b;
+  --border: #29374a;
+  --input-border: #77889f;
+  --text: #edf3fa;
+  --muted: #a2b0c3;
+  --accent: #68e5c0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top right, #152c36 0%, transparent 55%), var(--background);
+  color: var(--text);
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.dashboard { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+.site-header, .brand, .section-heading, .card-top, .site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.site-header { min-height: 100px; border-bottom: 1px solid var(--border); }
+.brand { justify-content: flex-start; color: var(--text); text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; }
+.brand-mark { font-family: monospace; font-size: 24px; letter-spacing: -2px; }
+.brand-mark span, .accent { color: var(--accent); }
+.brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; }
+.stage-label { color: var(--muted); font: 12px monospace; }
+
+.intro { padding: 58px 0 40px; }
+.eyebrow, .category { color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: 1.8px; }
+h1 { margin: 10px 0 12px; font-size: clamp(32px, 5vw, 52px); line-height: 1.15; letter-spacing: -1.8px; }
+.intro-text { color: var(--muted); margin: 0; font-size: 16px; }
+.section-heading { margin-bottom: 20px; }
+.section-heading h2 { margin: 0; font-size: 18px; font-weight: 600; }
+.section-heading > span { color: var(--muted); font: 12px monospace; }
+
+/* A two-column grid becomes one column on smaller screens. */
+.tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.tool-card { display: flex; flex-direction: column; padding: 28px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+.tool-icon { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid #335950; border-radius: 10px; background: #19332f; color: var(--accent); font: 700 24px monospace; }
+.tool-number { color: var(--muted); font: 12px monospace; }
+.category { margin: 24px 0 6px; font-size: 10px; }
+.tool-card h3 { margin: 0; font-size: 21px; line-height: 1.35; letter-spacing: -0.4px; }
+.card-description { margin: 12px 0 24px; max-width: 390px; color: var(--muted); font-size: 14px; }
+.card-footer { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+.site-footer { margin-top: 40px; padding: 22px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+.site-footer p { margin: 0; }
+.site-footer p:last-child { font: 10px monospace; letter-spacing: 1px; }
+
+/* A real button makes the entire analyzer card work with mouse and keyboard. */
+[hidden] { display: none !important; }
+.available-card { position: relative; }
+.available-card:hover { border-color: var(--accent); }
+.card-button { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.card-button::after { content: ""; position: absolute; inset: 0; border-radius: 14px; }
+.available-card:focus-within { outline: 2px solid var(--accent); outline-offset: 4px; }
+.available-status { color: var(--accent); }
+.analyzer { max-width: 760px; padding: 28px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.analyzer h2 { margin: 8px 0; font-size: 28px; line-height: 1.3; }
+.helper-text { color: var(--muted); font-size: 14px; }
+.analyzer label { display: block; margin: 24px 0 8px; font-weight: 600; }
+.password-field { display: flex; gap: 12px; }
+.password-field input { flex: 1; min-width: 0; width: 100%; padding: 12px; border: 1px solid var(--input-border); border-radius: 8px; background: var(--background); color: var(--text); font: inherit; }
+.secondary-button { padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); color: var(--accent); font: inherit; cursor: pointer; }
+.secondary-button:hover { border-color: var(--accent); }
+.secondary-button:focus-visible, .password-field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#strength-label { margin-bottom: 8px; font-weight: 600; }
+/* Explicit colors and fill lengths agree with the five written ratings in all engines. */
+#strength-meter { width: 100%; height: 18px; border: 1px solid var(--input-border); border-radius: 8px; overflow: hidden; background: var(--background); }
+#strength-fill { display: block; height: 100%; width: 0; background: var(--muted); }
+#strength-meter[data-score="1"] #strength-fill { background: #ff8a8a; }
+#strength-meter[data-score="2"] #strength-fill { background: #ffbf80; }
+#strength-meter[data-score="3"] #strength-fill { background: #ead879; }
+#strength-meter[data-score="4"] #strength-fill { background: #8edccf; }
+#strength-meter[data-score="5"] #strength-fill { background: var(--accent); }
+@media (forced-colors: active) {
+  #strength-fill { background: Highlight !important; forced-color-adjust: none; }
+}
+.checklist { padding: 0; list-style: none; }
+.checklist li { padding: 6px 0; color: var(--muted); }
+.checklist li.satisfied { color: var(--accent); }
+.checklist li.warning { color: #ffbf80; }
+.learning-notes { margin-top: 28px; padding-top: 8px; border-top: 1px solid var(--border); }
+.learning-notes h4 { margin: 20px 0 6px; font-size: 15px; }
+.learning-notes p { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* Generator controls reuse the existing panel, button, and focus styles. */
+.length-input, .generated-output { padding: 12px; border: 1px solid var(--input-border); border-radius: 8px; background: var(--background); color: var(--text); font: inherit; }
+.length-input { width: 110px; }
+.generator-options { margin: 24px 0 12px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; }
+.generator-options label { display: flex; align-items: center; gap: 10px; margin: 10px 0; font-weight: 400; }
+.generator-options input { width: 18px; height: 18px; accent-color: var(--accent); }
+.generated-output { display: block; width: 100%; margin-bottom: 12px; resize: vertical; font-family: monospace; font-size: 18px; overflow-wrap: anywhere; }
+.primary-button { background: var(--accent); color: var(--background); font-weight: 600; }
+.tool-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.salt-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.salt-value { display: block; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); font-family: monospace; overflow-wrap: anywhere; }
+.learning-notes .education-warning { margin-bottom: 20px; padding: 14px; border-left: 3px solid #ffbf80; color: #ffbf80; background: var(--background); }
+.secondary-button:disabled { opacity: 0.5; cursor: default; }
+.length-input:focus-visible, .generated-output:focus-visible, .generator-options input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Quiz feedback uses words as well as color, and keeps keyboard focus visible. */
+.quiz-answers { display: grid; gap: 12px; margin: 20px 0; }
+.quiz-answer { width: 100%; text-align: left; color: var(--text); }
+.quiz-answer[aria-disabled="true"] { cursor: default; }
+.quiz-answer.correct-answer { border-color: var(--accent); }
+.quiz-answer.incorrect-answer { border-color: #ffbf80; }
+.quiz-feedback { color: var(--muted); }
+#quiz-question:focus, #quiz-final-score:focus { outline: 2px solid var(--accent); outline-offset: 5px; }
+
+/* Mobile spacing keeps the text readable without horizontal scrolling. */
+@media (max-width: 640px) {
+  .dashboard { padding: 0 20px; }
+  .site-header { align-items: flex-start; flex-direction: column; justify-content: center; gap: 8px; padding: 20px 0; }
+  .intro { padding: 40px 0 32px; }
+  .tool-grid { grid-template-columns: 1fr; }
+  .salt-results { grid-template-columns: 1fr; }
+  .tool-card { padding: 24px; }
+  .analyzer { padding: 20px; }
+  .password-field { flex-direction: column; }
+  .site-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
